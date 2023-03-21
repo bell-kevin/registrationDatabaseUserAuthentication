@@ -8,6 +8,8 @@ Take screenshots showing the authentication log-in screen, authentication new ac
 
 Submission: Zip together the root folder and the 4 screenshots, and submit the single zipped folder.
 
+https://github.com/academind/react-native-practical-guide-code/tree/11-auth/code/01-starting-code
+
 ## How to:
 
 Create one app. for both Android and iOS (Apple) using one computer alorithm for both apps. You'll need Visual Studio Code and Android Studio to get started:
