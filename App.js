@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
 
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
@@ -81,27 +81,29 @@ function Root() {
         authCtx.authenticate(storedToken);
       }
 
+      await SplashScreen.hideAsync();
       setIsTryingLogin(false);
     }
 
     fetchToken();
   }, []);
 
-  if (isTryingLogin) {
-    return <AppLoading />;
-  }
-
-  return <Navigation />;
-}
-
-export default function App() {
-  
   return (
     <>
       <StatusBar style="light" />
-      <AuthContextProvider>
-        <Root />
-      </AuthContextProvider>
+      <Navigation />
     </>
+  );
+}
+
+export default function App() {
+  useEffect(() => {
+    SplashScreen.preventAutoHideAsync();
+  }, []);
+
+  return (
+    <AuthContextProvider>
+      <Root />
+    </AuthContextProvider>
   );
 }
