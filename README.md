@@ -8,7 +8,7 @@ Take screenshots showing the authentication log-in screen, authentication new ac
 
 Submission: Zip together the root folder and the 4 screenshots, and submit the single zipped folder.
 
-https://github.com/academind/react-native-practical-guide-code/tree/11-auth/code/01-starting-code
+https://github.com/academind/react-native-practical-guide-code/tree/11-auth/code/10-storing-auth-tokens-on-the-device
 
 ## How to:
 
