@@ -13,7 +13,7 @@ function WelcomeScreen() {
   useEffect(() => {
     axios
       .get(
-        'https://react-native-course-3cceb-default-rtdb.firebaseio.com/message.json?auth=' +
+        'https://react-native-course-bef50-default-rtdb.firebaseio.com/message.json?auth=' +
           token
       )
       .then((response) => {
@@ -23,7 +23,7 @@ function WelcomeScreen() {
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>Welcome!</Text>
+      <Text style={styles.title}>Welcome to this app</Text>
       <Text>You authenticated successfully!</Text>
       <Text>{fetchedMessage}</Text>
     </View>
