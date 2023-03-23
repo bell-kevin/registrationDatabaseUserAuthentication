@@ -34,6 +34,7 @@ function AuthStack() {
 
 function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -42,26 +43,37 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      {/* <Stack.Screen
-        name="Welcome"
-        component={WelcomeScreen}
-        options={{
+      {authCtx.hasLoggedInBefore ? (
+        <Stack.Screen
+          name="Welcome"
+          component={WelcomeScreen}
+          options={{
+            headerRight: ({ tintColor }) => (
+              <IconButton
+                icon="exit"
+                color={tintColor}
+                size={24}
+                onPress={authCtx.logout}
+              />
+            ),
+          }}
+        />
+      ) : (
+        <Stack.Screen name="Name" component={NameScreen} options={{
           headerRight: ({ tintColor }) => (
             <IconButton
               icon="exit"
               color={tintColor}
               size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      /> */}
-      <Stack.Screen name="Name" component={NameScreen} />
+              onPress={authCtx.logout}  />
+      )}} />
+      )}
       <Stack.Screen name="Phone" component={PhoneScreen} />
       <Stack.Screen name="Validation" component={ValidationScreen} />
     </Stack.Navigator>
   );
 }
+
 
 function Navigation() {
   const authCtx = useContext(AuthContext);
@@ -81,32 +93,41 @@ function Root() {
 
   useEffect(() => {
     async function fetchToken() {
-      const storedToken = await AsyncStorage.getItem('token');
+      try {
+        const storedToken = await AsyncStorage.getItem('token');
 
-      if (storedToken) {
-        authCtx.authenticate(storedToken);
+        if (storedToken) {
+          authCtx.authenticate(storedToken);
+          authCtx.setHasLoggedInBefore(true);
+        } else {
+          authCtx.setHasLoggedInBefore(false);
+        }
+
+        await SplashScreen.hideAsync();
+      } catch (err) {
+        console.log(err);
       }
 
-      await SplashScreen.hideAsync();
       setIsTryingLogin(false);
     }
 
     fetchToken();
   }, []);
 
+  if (isTryingLogin) {
+    return null;
+  }
+
   return (
-    <>
+    <NavigationContainer>
       <StatusBar style="light" />
-      <Navigation />
-    </>
+      {!authCtx.isAuthenticated && <AuthStack />}
+      {authCtx.isAuthenticated && <AuthenticatedStack />}
+    </NavigationContainer>
   );
 }
 
 export default function App() {
-  useEffect(() => {
-    SplashScreen.preventAutoHideAsync();
-  }, []);
-
   return (
     <AuthContextProvider>
       <Root />
