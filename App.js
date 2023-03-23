@@ -12,6 +12,8 @@ import { Colors } from './constants/styles';
 import AuthContextProvider, { AuthContext } from './store/auth-context';
 import IconButton from './components/ui/IconButton';
 import NameScreen from './screens/NameScreen';
+import PhoneScreen from './screens/PhoneScreen';
+import ValidationScreen from './screens/ValidationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,7 +42,7 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
         options={{
@@ -53,7 +55,10 @@ function AuthenticatedStack() {
             />
           ),
         }}
-      />
+      /> */}
+      <Stack.Screen name="Name" component={NameScreen} />
+      <Stack.Screen name="Phone" component={PhoneScreen} />
+      <Stack.Screen name="Validation" component={ValidationScreen} />
     </Stack.Navigator>
   );
 }
