@@ -42,7 +42,7 @@ function AuthenticatedStack() {
     >
       <Stack.Screen
         name="Welcome"
-        component={NameScreen}
+        component={WelcomeScreen}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
