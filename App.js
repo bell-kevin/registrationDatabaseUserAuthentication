@@ -14,6 +14,7 @@ import IconButton from './components/ui/IconButton';
 import NameScreen from './screens/NameScreen';
 import PhoneScreen from './screens/PhoneScreen';
 import ValidationScreen from './screens/ValidationScreen';
+import HomeScreen from './screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,13 +29,26 @@ function AuthStack() {
     >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
 
 function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
-
   return (
     <Stack.Navigator
       screenOptions={{
@@ -43,33 +57,42 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      {authCtx.hasLoggedInBefore ? (
-        <Stack.Screen
-          name="Welcome"
-          component={WelcomeScreen}
-          options={{
-            headerRight: ({ tintColor }) => (
-              <IconButton
-                icon="exit"
-                color={tintColor}
-                size={24}
-                onPress={authCtx.logout}
-              />
-            ),
-          }}
-        />
-      ) : (
-        <Stack.Screen name="Name" component={NameScreen} options={{
+      <Stack.Screen name="Home" component={HomeScreen} options={{
+        headerRight: ({ tintColor }) => (
+          <IconButton
+            icon="exit"
+            color={tintColor}
+            size={24}
+            onPress={authCtx.logout}
+          />
+        ),
+      }} />
+      <Stack.Screen name="Name" component={NameScreen} options={{
           headerRight: ({ tintColor }) => (
             <IconButton
               icon="exit"
               color={tintColor}
               size={24}
-              onPress={authCtx.logout}  />
-      )}} />
-      )}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}/>
       <Stack.Screen name="Phone" component={PhoneScreen} />
       <Stack.Screen name="Validation" component={ValidationScreen} />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -100,7 +123,7 @@ function Root() {
           authCtx.authenticate(storedToken);
           authCtx.setHasLoggedInBefore(true);
         } else {
-          authCtx.setHasLoggedInBefore(false);
+          authCtx.setHasLoggedInBefore(true);
         }
 
         await SplashScreen.hideAsync();
