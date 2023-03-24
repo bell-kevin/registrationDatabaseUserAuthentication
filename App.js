@@ -68,15 +68,15 @@ function AuthenticatedStack() {
         ),
       }} />
       <Stack.Screen name="Name" component={NameScreen} options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}/>
+        headerRight: ({ tintColor }) => (
+          <IconButton
+            icon="exit"
+            color={tintColor}
+            size={24}
+            onPress={authCtx.logout}
+          />
+        ),
+      }} />
       <Stack.Screen name="Phone" component={PhoneScreen} />
       <Stack.Screen name="Validation" component={ValidationScreen} />
       <Stack.Screen
@@ -100,9 +100,16 @@ function AuthenticatedStack() {
 
 function Navigation() {
   const authCtx = useContext(AuthContext);
+  const userCtx = useContext(UserContext);
+
+  let profileComplete = userCtx.firstNameValid && userCtx.lastNameValid && userCtx.phoneValid;
+  console.log("function Navigation, set up authCtx, token exists");
+  console.log("function Navigation, isAuthenticated is " + authCtx.isAuthenticated);
+
 
   return (
     <NavigationContainer>
+      {authCtx.isAuthenticated && profileComplete && <completedStack />}
       {!authCtx.isAuthenticated && <AuthStack />}
       {authCtx.isAuthenticated && <AuthenticatedStack />}
     </NavigationContainer>
