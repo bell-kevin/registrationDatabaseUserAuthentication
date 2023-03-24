@@ -10,6 +10,8 @@ Submission: Zip together the root folder and the 4 screenshots, and submit the s
 
 https://github.com/academind/react-native-practical-guide-code/tree/11-auth/code/10-storing-auth-tokens-on-the-device
 
+![p](https://github.com/bell-kevin/registrationDatabaseUserAuthentication/blob/main/15380ae0-876f-4870-8fed-9bb004f59e1a.png)
+
 ## How to:
 
 Create one app. for both Android and iOS (Apple) using one computer alorithm for both apps. You'll need Visual Studio Code and Android Studio to get started:
