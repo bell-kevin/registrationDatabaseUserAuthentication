@@ -19,6 +19,35 @@ import { UserContext } from './context/userContext';
 
 const Stack = createNativeStackNavigator();
 
+function CompletedStack() {
+  const authCtx = useContext(AuthContext);
+  const userCtx = useContext(UserContext);
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary500 },
+        headerTintColor: 'white',
+        contentStyle: { backgroundColor: Colors.primary100 },
+      }}
+    >
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 function AuthStack() {
   const authCtx = useContext(AuthContext);
   const userCtx = useContext(UserContext);
@@ -101,7 +130,6 @@ function AuthenticatedStack() {
   );
 }
 
-
 function Navigation() {
   const authCtx = useContext(AuthContext);
   const userCtx = useContext(UserContext);
@@ -113,7 +141,7 @@ function Navigation() {
 
   return (
     <NavigationContainer>
-      {authCtx.isAuthenticated && profileComplete && <completedStack />}
+      {authCtx.isAuthenticated && profileComplete && <CompletedStack />}
       {!authCtx.isAuthenticated && <AuthStack />}
       {authCtx.isAuthenticated && <AuthenticatedStack />}
     </NavigationContainer>
@@ -123,8 +151,14 @@ function Navigation() {
 function Root() {
   const [isTryingLogin, setIsTryingLogin] = useState(true);
 
+  
+
   const authCtx = useContext(AuthContext);
   const userCtx = useContext(UserContext);
+
+  let profileComplete = userCtx.firstNameValid && userCtx.lastNameValid && userCtx.phoneValid;
+  console.log("function Navigation, set up authCtx, token exists");
+  console.log("function Navigation, isAuthenticated is " + authCtx.isAuthenticated);
 
   useEffect(() => {
     async function fetchToken() {
@@ -156,6 +190,7 @@ function Root() {
   return (
     <NavigationContainer>
       <StatusBar style="light" />
+      {authCtx.isAuthenticated && profileComplete && <CompletedStack />}
       {!authCtx.isAuthenticated && <AuthStack />}
       {authCtx.isAuthenticated && <AuthenticatedStack />}
     </NavigationContainer>
