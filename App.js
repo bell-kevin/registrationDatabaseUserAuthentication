@@ -15,10 +15,13 @@ import NameScreen from './screens/NameScreen';
 import PhoneScreen from './screens/PhoneScreen';
 import ValidationScreen from './screens/ValidationScreen';
 import HomeScreen from './screens/HomeScreen';
+import { UserContext } from './context/userContext';
 
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
+  const authCtx = useContext(AuthContext);
+  const userCtx = useContext(UserContext);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -49,6 +52,7 @@ function AuthStack() {
 
 function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
+  const userCtx = useContext(UserContext);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -120,6 +124,7 @@ function Root() {
   const [isTryingLogin, setIsTryingLogin] = useState(true);
 
   const authCtx = useContext(AuthContext);
+  const userCtx = useContext(UserContext);
 
   useEffect(() => {
     async function fetchToken() {
