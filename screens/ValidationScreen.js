@@ -31,7 +31,7 @@ const ValidationScreen = ({ navigation }) => {
       Alert.alert(
         'Data Confirmed',
         'Thank you for confirming the data.',
-        [{ text: 'OK', onPress: () => navigation.popToTop() }],
+        [{ text: 'OK', onPress: () => navigation.navigate('Welcome') }],
       );
     } catch (error) {
       Alert.alert(
@@ -94,4 +94,3 @@ const ValidationScreen = ({ navigation }) => {
 };
 
 export default ValidationScreen;
-
