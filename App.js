@@ -127,33 +127,21 @@ function Navigation() {
 function Root() {
   const [isTryingLogin, setIsTryingLogin] = useState(true);
 
-
-
   const authCtx = useContext(AuthContext);
-  const userCtx = useContext(UserContext);
-
-  let profileComplete = userCtx.firstNameValid && userCtx.lastNameValid && userCtx.phoneValid;
-  console.log("function Navigation, set up authCtx, token exists");
-  console.log("function Navigation, isAuthenticated is " + authCtx.isAuthenticated);
 
   useEffect(() => {
     async function fetchToken() {
-      try {
-        const storedToken = await AsyncStorage.getItem('token');
+      await SplashScreen.preventAutoHideAsync();
+      
+      const storedToken = await AsyncStorage.getItem('token');
 
-        if (storedToken) {
-          authCtx.authenticate(storedToken);
-          authCtx.setHasLoggedInBefore(true);
-        } else {
-          authCtx.setHasLoggedInBefore(true);
-        }
-
-        await SplashScreen.hideAsync();
-      } catch (err) {
-        console.log(err);
+      if (storedToken) {
+        authCtx.authenticate(storedToken);
       }
 
       setIsTryingLogin(false);
+      
+      await SplashScreen.hideAsync();
     }
 
     fetchToken();
@@ -163,15 +151,9 @@ function Root() {
     return null;
   }
 
-  return (
-    <NavigationContainer>
-      <StatusBar style="light" />
-      {authCtx.isAuthenticated && profileComplete && <CompletedStack />}
-      {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && <AuthenticatedStack />}
-    </NavigationContainer>
-  );
+  return <Navigation />;
 }
+
 
 export default function App() {
   return (
