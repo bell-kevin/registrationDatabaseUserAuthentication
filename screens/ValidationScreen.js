@@ -57,7 +57,6 @@ const ValidationScreen = ({ navigation }) => {
       <View style={{ alignItems: 'center' }}>
         <Text style={{ fontSize: 18, marginBottom: 10 }}>Name: {firstName} {lastName}</Text>
         <Text style={{ fontSize: 18, marginBottom: 10 }}>Phone Number: {phoneNumber}</Text>
-        <Text style={{ fontSize: 18, marginBottom: 10 }}>Email: {email}</Text>
         <Text style={{ fontSize: 18, marginBottom: 10 }}>Is the above info. correct?</Text>
       </View>
       <View style={{ flexDirection: 'row', marginTop: 30 }}>
