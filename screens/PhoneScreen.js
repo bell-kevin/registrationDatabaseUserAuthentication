@@ -14,7 +14,7 @@ const PhoneScreen = ({ navigation }) => {
     } else {
       setShowError(false);
       userContext.setPhone(phone);
-      navigation.navigate('Email');
+      navigation.navigate('Validation');
     }
   };
 
@@ -87,6 +87,3 @@ const styles = StyleSheet.create({
 });
 
 export default PhoneScreen;
-
-
-
