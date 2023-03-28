@@ -14,7 +14,6 @@ import IconButton from './components/ui/IconButton';
 import NameScreen from './screens/NameScreen';
 import PhoneScreen from './screens/PhoneScreen';
 import ValidationScreen from './screens/ValidationScreen';
-import HomeScreen from './screens/HomeScreen';
 import { UserContext, UserContextProvider } from './context/userContext';
 
 const Stack = createNativeStackNavigator();
@@ -132,7 +131,7 @@ function Root() {
   useEffect(() => {
     async function fetchToken() {
       await SplashScreen.preventAutoHideAsync();
-      
+
       const storedToken = await AsyncStorage.getItem('token');
 
       if (storedToken) {
@@ -140,7 +139,7 @@ function Root() {
       }
 
       setIsTryingLogin(false);
-      
+
       await SplashScreen.hideAsync();
     }
 
@@ -157,10 +156,13 @@ function Root() {
 
 export default function App() {
   return (
-    <UserContextProvider>
-      <AuthContextProvider>
-        <Root />
-      </AuthContextProvider>
-    </UserContextProvider>
+    <>
+      <StatusBar style="light" />
+      <UserContextProvider>
+        <AuthContextProvider>
+          <Root />
+        </AuthContextProvider>
+      </UserContextProvider>
+    </>
   );
 }
