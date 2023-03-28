@@ -15,7 +15,7 @@ import NameScreen from './screens/NameScreen';
 import PhoneScreen from './screens/PhoneScreen';
 import ValidationScreen from './screens/ValidationScreen';
 import HomeScreen from './screens/HomeScreen';
-import { UserContext } from './context/userContext';
+import { UserContext, UserContextProvider } from './context/userContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -61,20 +61,6 @@ function AuthStack() {
     >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
-      <Stack.Screen
-        name="Welcome"
-        component={WelcomeScreen}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
     </Stack.Navigator>
   );
 }
@@ -90,16 +76,6 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} options={{
-        headerRight: ({ tintColor }) => (
-          <IconButton
-            icon="exit"
-            color={tintColor}
-            size={24}
-            onPress={authCtx.logout}
-          />
-        ),
-      }} />
       <Stack.Screen name="Name" component={NameScreen} options={{
         headerRight: ({ tintColor }) => (
           <IconButton
@@ -151,7 +127,7 @@ function Navigation() {
 function Root() {
   const [isTryingLogin, setIsTryingLogin] = useState(true);
 
-  
+
 
   const authCtx = useContext(AuthContext);
   const userCtx = useContext(UserContext);
@@ -199,8 +175,10 @@ function Root() {
 
 export default function App() {
   return (
-    <AuthContextProvider>
-      <Root />
-    </AuthContextProvider>
+    <UserContextProvider>
+      <AuthContextProvider>
+        <Root />
+      </AuthContextProvider>
+    </UserContextProvider>
   );
 }
