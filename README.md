@@ -12,6 +12,16 @@ https://github.com/academind/react-native-practical-guide-code/tree/11-auth/code
 
 ![p](https://github.com/bell-kevin/registrationDatabaseUserAuthentication/blob/main/15380ae0-876f-4870-8fed-9bb004f59e1a.png)
 
+![p](https://github.com/bell-kevin/registrationDatabaseUserAuthentication/blob/main/screenshots/1.PNG)
+
+![p](https://github.com/bell-kevin/registrationDatabaseUserAuthentication/blob/main/screenshots/2.PNG)
+
+![p](https://github.com/bell-kevin/registrationDatabaseUserAuthentication/blob/main/screenshots/3.PNG)
+
+![p](https://github.com/bell-kevin/registrationDatabaseUserAuthentication/blob/main/screenshots/4.PNG)
+
+![p](https://github.com/bell-kevin/registrationDatabaseUserAuthentication/blob/main/screenshots/5.PNG)
+
 ## How to:
 
 Create one app. for both Android and iOS (Apple) using one computer alorithm for both apps. You'll need Visual Studio Code and Android Studio to get started:
